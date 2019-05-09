@@ -39,6 +39,23 @@ class Student extends Person {
     PRAssignment(subject) {
         console.log(`${this.name} has submitted a PR for ${subject}.`)
     }
+    sprintChallenge(student, subject) {
+        console.log(`${student.name} has begun sprint challenge on ${subject}.`);
+    }
+}
+
+class ProjectManager extends Instructor {
+    constructor(attributes) {
+        super(attributes);
+        this.gradClassName = attributes.gradClassName;
+        this.favInstructor = attributes.favInstructor;
+    }
+    standUp(channel) {
+        console.log(`${this.name} announces to ${channel}, @channel stand up time!`);
+    }
+    debugsCode(student, subject) {
+        console.log(`${this.name} debugs ${student.name}'s code on ${subject}.`)
+    }
 }
 
 
@@ -80,6 +97,25 @@ const eli = new Student({
     favSubjects: ["React", "LESS", "Node.js"]
 });
 
+const max = new ProjectManager({
+    name: "Max",
+    age: 27,
+    location: "Austin, TX",
+    gradClassName: "Web 95",
+    favInstructor: jeff
+})
+
+const april = new ProjectManager({
+    name: "April",
+    age: 32,
+    location: "Minneapolis, MN",
+    gradClassName: "Mobile Dev 54",
+    favInstructor: dan
+})
+
+
+/* ====== OBJECT TESTS ====== */
+
 console.log(dan);
 dan.demo("Node.js");
 dan.grade(eli, "Node.js");
@@ -91,7 +127,17 @@ jeff.grade(dave, "Semantic Elements");
 console.log(dave);
 dave.listsSubjects(dave.favSubjects);
 dave.PRAssignment("history");
+dave.sprintChallenge(dave, "LESS");
 
 console.log(eli);
 eli.listsSubjects(eli.favSubjects);
 eli.PRAssignment("history");
+eli.sprintChallenge(eli, "Advanced HTML");
+
+console.log(max);
+max.standUp("Channel 12");
+max.debugsCode(dave, "Lambda Classes");
+
+console.log(april);
+april.standUp("Disney Channel");
+april.debugsCode(dave, "The Enigma Machine");
