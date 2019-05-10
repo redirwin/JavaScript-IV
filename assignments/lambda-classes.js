@@ -24,6 +24,21 @@ class Instructor extends Person {
     grade(student, subject) {
         console.log(`${student.name} receives a perfect score on ${subject}.`);
     }
+    updateGrade(student) {
+        let changeAmount = Math.floor((Math.random() * 100) + 1);
+        if (Math.floor((Math.random() * 2) + 1) === 1) {
+            student.grade += changeAmount;
+        } else {
+            student.grade -= changeAmount;
+        }
+        if (student.grade > 100) {
+            student.grade = 100;
+        }
+        if (student.grade < 0) {
+            student.grade = 0;
+        }
+        console.log(`${student.name}'s new grade is ${student.grade}%.`)
+    }
 }
 
 class Student extends Person {
@@ -32,6 +47,7 @@ class Student extends Person {
         this.previousBackground = attributes.previousBackground;
         this.className = attributes.className;
         this.favSubjects = attributes.favSubjects;
+        this.grade = attributes.grade;
     }
     listsSubjects() {
         this.favSubjects.forEach(element => { console.log(element) })
@@ -41,6 +57,13 @@ class Student extends Person {
     }
     sprintChallenge(student, subject) {
         console.log(`${student.name} has begun sprint challenge on ${subject}.`);
+    }
+    graduate() {
+        if (this.grade > 70) {
+            console.log(`${this.name}'s grade is ${this.grade}%. ${this.name} can graduate! Sweet!`);
+        } else {
+            console.log(`${this.name}'s grade is ${this.grade}%. That's not high enough to graduate yet. Let's keep grading papers.`)
+        }
     }
 }
 
@@ -85,7 +108,8 @@ const dave = new Student({
     location: "Mesa, AZ",
     previousBackground: "Immigration Officer",
     className: "Full Stack Web",
-    favSubjects: ["JavaScript", "CSS", "HTML"]
+    favSubjects: ["JavaScript", "CSS", "HTML"],
+    grade: 73
 });
 
 const eli = new Student({
@@ -94,7 +118,8 @@ const eli = new Student({
     location: "Provo, UT",
     previousBackground: "High School",
     className: "App Development",
-    favSubjects: ["React", "LESS", "Node.js"]
+    favSubjects: ["React", "LESS", "Node.js"],
+    grade: 87
 });
 
 const max = new ProjectManager({
@@ -119,20 +144,26 @@ const april = new ProjectManager({
 console.log(dan);
 dan.demo("Node.js");
 dan.grade(eli, "Node.js");
+dan.updateGrade(dave);
+dan.updateGrade(eli);
 
 console.log(jeff)
 jeff.demo("Semantic Elements");
 jeff.grade(dave, "Semantic Elements");
+jeff.updateGrade(dave);
+jeff.updateGrade(eli);
 
 console.log(dave);
 dave.listsSubjects(dave.favSubjects);
 dave.PRAssignment("history");
 dave.sprintChallenge(dave, "LESS");
+dave.graduate();
 
 console.log(eli);
 eli.listsSubjects(eli.favSubjects);
 eli.PRAssignment("history");
 eli.sprintChallenge(eli, "Advanced HTML");
+eli.graduate();
 
 console.log(max);
 max.standUp("Channel 12");
